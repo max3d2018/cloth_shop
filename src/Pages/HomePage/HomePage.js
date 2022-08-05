@@ -6,12 +6,11 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      categories: ["Hats", "Jackets", "Sneakers", "Womens", "Mens"],
-    };
+    this.state = {};
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className={classes.container}>
         <Directory categories={this.state.categories} />
