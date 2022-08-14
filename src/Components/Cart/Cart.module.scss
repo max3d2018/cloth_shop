@@ -1,0 +1,16 @@
+.Container {
+  position: relative;
+  cursor: pointer;
+}
+.Logo {
+  width: 50px;
+  height: 50px;
+}
+
+.ItemsNum {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15px;
+}

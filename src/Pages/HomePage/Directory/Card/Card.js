@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import classes from "./Card.module.scss";
 
 const Card = ({ title, imageUrl, linkUrl, size, history, match }) => {
-  console.log(match);
   return (
     <div
       className={`${classes[size] ? classes[size] : ""} ${classes.container}`}

@@ -1,0 +1,40 @@
+.Input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1rem;
+  position: relative;
+  width: 100%;
+  outline: none;
+
+  &__Label {
+    font-size: 20px;
+    position: absolute;
+    left: 20px;
+    top: 14px;
+    z-index: -1;
+    color: rgb(143, 143, 143);
+  }
+
+  &__Input {
+    padding: 1rem 2rem;
+    border: 0;
+    border-bottom: 1px solid #333;
+    font-family: inherit;
+    background-color: transparent;
+    width: 100%;
+    font-size: 3rem;
+  }
+
+  &__Input:focus {
+    outline: none;
+  }
+  &__Input:focus ~ &__Label {
+    transition: all 0.4s;
+    top: -13px;
+  }
+
+  &__Input::placeholder {
+    font-size: 20px;
+  }
+}

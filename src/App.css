@@ -1,3 +1,6 @@
+.appContainer {
+  padding: 20px 60px;
+}
 .App {
   text-align: center;
 }

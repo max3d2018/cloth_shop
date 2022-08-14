@@ -1,0 +1,13 @@
+.ShopPage {
+  min-height: calc(100vh - 70px);
+  display: grid;
+
+  &__Heading {
+    font-size: 40px;
+  }
+
+  &__Items {
+    display: grid;
+    row-gap: 5rem;
+  }
+}

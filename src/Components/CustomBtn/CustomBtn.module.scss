@@ -1,0 +1,45 @@
+.Button {
+  padding: 2rem 4rem;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 2rem;
+  font-family: inherit;
+}
+
+.Black {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  transition: all 0.3s;
+  &:hover {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #000;
+  }
+}
+
+.White {
+  color: #000;
+  background-color: #fff;
+  transition: all 0.3s;
+  border: 1px solid #000;
+  &:hover {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid transparent;
+  }
+}
+
+.BlueGoogle {
+  background-color: #4285f4;
+  color: #fff;
+  border: 1px solid #fff;
+  transition: all 0.3s;
+  &:hover {
+    color: #000;
+    background-color: #357ae8;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+}
