@@ -1,5 +1,5 @@
 import React from "react";
-import CollectionItem from "./CollectionItem/CollectionItem";
+import CollectionItem from "../CollectionItem/CollectionItem";
 import classes from "./CollectionPreview.module.scss";
 const CollectionPreview = ({ title, items }) => {
   return (
@@ -8,8 +8,8 @@ const CollectionPreview = ({ title, items }) => {
       <div className={classes.Collection__Items}>
         {items
           .filter((item, idx) => idx < 4)
-          .map(({ id, ...otherParts }) => {
-            return <CollectionItem key={id} {...otherParts} />;
+          .map((item) => {
+            return <CollectionItem key={item.id} item={item} />;
           })}
       </div>
     </div>

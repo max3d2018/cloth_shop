@@ -1,21 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Card from "./Card/Card";
 import classes from "./Directory.module.scss";
-import { sections } from "./directory.data";
+import { createStructuredSelector } from "reselect";
+import { selectSections } from "../../../redux/directory/directory.selectors";
 
 class Directory extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      sections,
-    };
-  }
-
   render() {
     return (
       <div className={classes.container}>
-        {this.state.sections.map(({ id, ...otherParts }) => (
+        {this.props.sections.map(({ id, ...otherParts }) => (
           <Card key={id} {...otherParts} />
         ))}
       </div>
@@ -23,4 +17,6 @@ class Directory extends Component {
   }
 }
 
-export default Directory;
+const mapStateToProps = createStructuredSelector({ sections: selectSections });
+
+export default connect(mapStateToProps)(Directory);

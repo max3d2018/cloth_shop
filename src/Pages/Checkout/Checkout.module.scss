@@ -1,0 +1,31 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  row-gap: 2rem;
+}
+.Descriptions {
+  width: 60vw;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  font-size: 1.7rem;
+  font-weight: 300;
+  border-bottom: 1px solid #333;
+  padding: 2rem 1rem;
+}
+.Items {
+  border-bottom: 1px solid #333;
+  width: 60vw;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+.Total {
+  width: 60vw;
+  font-size: 4rem;
+  text-align: end;
+}
