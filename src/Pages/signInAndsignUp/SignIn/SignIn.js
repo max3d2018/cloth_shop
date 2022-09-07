@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import CustomBtn from "../../../Components/CustomBtn/CustomBtn";
 import FormInput from "../../../Components/FormInput/FormInput";
 import classes from "./SignIn.module.scss";
-import { signInWithGoogle } from "../../../firebase/firebase";
-import { firestore } from "../../../firebase/firebase";
-import { collection, getDocs } from "firebase/firestore";
 import { auth } from "../../../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  googleSignInStart,
+  emailSignInStart,
+} from "../../../redux/user/userActions";
+import { connect } from "react-redux";
 
 class SignIn extends Component {
   constructor() {
@@ -19,13 +21,11 @@ class SignIn extends Component {
   }
 
   handleSubmit = async (e) => {
+    const { dispatch } = this.props;
     const { email, password } = this.state;
+
     e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (err) {
-      console.log(err.message);
-    }
+    dispatch(emailSignInStart(email, password));
 
     this.setState({
       email: "",
@@ -42,6 +42,7 @@ class SignIn extends Component {
   componentDidMount() {}
 
   render() {
+    const { dispatch } = this.props;
     return (
       <div className={classes.SignInPage}>
         <h1>I Already have an Account</h1>
@@ -69,7 +70,10 @@ class SignIn extends Component {
             </CustomBtn>
           </div>
         </form>
-        <CustomBtn className="BlueGoogle" handleOnClick={signInWithGoogle}>
+        <CustomBtn
+          className="BlueGoogle"
+          handleOnClick={() => dispatch(googleSignInStart())}
+        >
           Sign In With GOOGLE
         </CustomBtn>
       </div>
@@ -77,4 +81,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+export default connect()(SignIn);

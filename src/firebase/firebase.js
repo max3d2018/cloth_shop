@@ -8,12 +8,14 @@ import {
   setDoc,
   updateDoc,
   getDocs,
+  writeBatch,
 } from "firebase/firestore";
 import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 let profileName = null;
@@ -35,18 +37,19 @@ export const auth = getAuth();
 
 //  Sign in with Google
 
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
+export const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
 
 export const signInWithGoogle = () => {
-  signInWithPopup(auth, provider);
+  signInWithPopup(auth, googleProvider);
 };
 
 export const db = getFirestore(app);
 
 export const signWithEmail = async (auth, email, password, name) => {
   if (name) profileName = name;
-  await createUserWithEmailAndPassword(auth, email, password);
+  const result = await createUserWithEmailAndPassword(auth, email, password);
+  return result;
 };
 
 export const createProfileDoc = async (authUser) => {
@@ -74,4 +77,52 @@ export const createProfileDoc = async (authUser) => {
   }
   profileName = null;
   return usersRef;
+};
+
+export const addDataToCollection = async (collectionName, objectsToAdd) => {
+  const colllectionRef = collection(db, collectionName);
+
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((obj) => {
+    console.log(obj);
+    const newDocumentRef = doc(colllectionRef);
+
+    batch.set(newDocumentRef, obj);
+  });
+
+  return await batch.commit();
+};
+
+export const convertArrayToMap = (arr) => {
+  const itemsArr = arr.map((doc) => {
+    const { items, title } = doc.data();
+    console.log(doc.data());
+
+    return {
+      id: doc.id,
+      route: encodeURI(title.toLowerCase()),
+      items,
+      title,
+    };
+  });
+
+  return itemsArr.reduce((acc, item) => {
+    acc[item.title.toLowerCase()] = item;
+    return acc;
+  }, {});
+};
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscibe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        console.log(userAuth);
+        unsubscibe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
 };

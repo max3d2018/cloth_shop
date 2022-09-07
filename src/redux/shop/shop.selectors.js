@@ -8,11 +8,21 @@ export const selectShopData = createSelector(
 );
 
 export const convertDataToArr = createSelector([selectShopData], (data) => {
-  return Object.keys(data).map((key) => data[key]);
+  return data ? Object.keys(data).map((key) => data[key]) : [];
 });
 
 export const selectCorrectData = (urlParam) => {
   return createSelector([selectShopData], (data) => {
-    return data[urlParam];
+    return data ? data[urlParam] : [];
   });
 };
+
+export const selectIsFetching = createSelector(
+  [selectShop],
+  (shop) => shop.isFetching
+);
+
+export const selectIsCollectionLoaded = createSelector(
+  [selectShop],
+  (shop) => !!shop.shopData
+);

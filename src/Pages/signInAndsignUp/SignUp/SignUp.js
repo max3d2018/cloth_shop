@@ -3,6 +3,9 @@ import classes from "./SignUp.module.scss";
 import FormInput from "../../../Components/FormInput/FormInput";
 import CustomBtn from "../../../Components/CustomBtn/CustomBtn";
 import { auth, signWithEmail } from "../../../firebase/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { connect } from "react-redux";
+import { signUpStart } from "../../../redux/user/userActions";
 
 class SignUp extends Component {
   constructor() {
@@ -17,6 +20,7 @@ class SignUp extends Component {
   }
 
   handleSubmit = async (e) => {
+    const { dispatch } = this.props;
     const { email, password, confirmPassword, displayName } = this.state;
     e.preventDefault();
     if (!password && !confirmPassword) return;
@@ -24,11 +28,8 @@ class SignUp extends Component {
       alert("Password and Confirm Password don't match");
       return;
     }
-    try {
-      await signWithEmail(auth, email, password, displayName);
-    } catch (error) {
-      console.log(error.message);
-    }
+
+    dispatch(signUpStart({ email, password, displayName }));
 
     this.setState({
       email: "",
@@ -95,4 +96,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default connect()(SignUp);

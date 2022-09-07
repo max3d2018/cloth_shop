@@ -10,10 +10,11 @@ import { connect } from "react-redux/es/exports";
 import CartItems from "../CartItems/CartItems";
 import { selectCartState } from "../../redux/cart/cart.selectors";
 import { selectCurrentUser } from "../../redux/user/users.selectors";
+import { signOutStart } from "../../redux/user/userActions";
 
-const Header = ({ user, cartItemsState }) => {
+const Header = ({ user, cartItemsState, dispatch }) => {
   const signOutHandler = () => {
-    auth.signOut();
+    dispatch(signOutStart());
   };
 
   return (
